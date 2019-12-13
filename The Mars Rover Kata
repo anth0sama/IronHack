@@ -1,0 +1,273 @@
+// This JavaScrip code allows you to move the object "rover" around the grid
+
+// Rover Object Goes Here
+
+var rover = {
+	direction: 'N',
+	//"direction" : ["N","E","S","W"]
+	position: [0, 0],
+  obstacle: [[2.6], [9.7], [8.2], [2.4], [5.9], [6.3]],
+};
+
+console.log('Your current direction is: ' + rover.direction);
+console.log('Your current position is: ' + rover.position);
+console.log('======================');
+
+//Bonus
+//===========================
+
+function createMatrix(columns, rows) {
+	var matrix = [];
+	for (var i = 0; i < columns; i++) {
+		matrix[i] = new Array(rows);
+	}
+	return matrix;
+}
+
+var myGrid = createMatrix(10, 10);
+
+console.log(myGrid);
+
+console.log('======================');
+
+// ======================
+var travelLog = [];
+
+// ======================
+
+console.log('======================');
+
+var obstacles = [
+
+{ "name": "Rock1",
+  "position": [2.6]
+},
+
+{ "name": "Rock2",
+  "position": [9.7]
+},
+
+{ "name": "Rock3",
+  "position": [8.2]
+},
+
+{ "name": "Rock4",
+  "position": [2.4]
+},
+
+{ "name": "Rock5",
+  "position": [5.9]
+},
+
+{ "name": "Rock6",
+  "position": [6.3]
+}
+];
+// ======================
+
+
+//turn
+//=======================
+
+function turnLeft() {
+	console.log('turnLeft was called!');
+
+	switch (rover.direction) {
+		case 'N':
+			rover.direction = 'W';
+			break;
+
+		case 'W':
+			rover.direction = 'S';
+			break;
+
+		case 'S':
+			rover.direction = 'E';
+			break;
+
+		case 'E':
+			rover.direction = 'N';
+			break;
+	}
+	console.log(rover);
+}
+
+function turnRight() {
+	console.log('turnRight was called!');
+	switch (rover.direction) {
+		case 'N':
+			rover.direction = 'E';
+			break;
+
+		case 'E':
+			rover.direction = 'S';
+			break;
+
+		case 'S':
+			rover.direction = 'W';
+			break;
+
+		case 'W':
+			rover.direction = 'N';
+			break;
+	}
+
+	console.log(rover);
+}
+
+function turning() {
+	switch (turn) {
+		case 'left':
+			turnLeft();
+			break;
+
+		case 'right':
+			turnRight();
+			break;
+	}
+
+	RegisterTravelLogTurn();
+}
+
+// ======================
+//MOVEMENT
+
+//moveForward
+
+function moveForward() {
+	console.log('moveForward was called');
+
+	switch (rover.direction) {
+		case 'N':
+			rover.position[0] = rover.position[0] - 1;
+			break;
+
+		case 'E':
+			rover.position[1] = rover.position[1] + 1;
+			break;
+
+		case 'S':
+			rover.position[0] = rover.position[0] + 1;
+			break;
+
+		case 'W':
+			rover.position[1] = rover.position[1] - 1;
+			break;
+	}
+
+	oops('forward');
+
+	console.log(rover);
+}
+
+//moveBackwards Bonus
+
+function moveBackwards() {
+	console.log('moveBackwards was called');
+
+	switch (rover.direction) {
+		case 'N':
+			rover.position[0] = rover.position[0] + 1;
+			break;
+
+		case 'E':
+			rover.position[1] = rover.position[1] - 1;
+			break;
+
+		case 'S':
+			rover.position[0] = rover.position[0] - 1;
+			break;
+
+		case 'W':
+			rover.position[1] = rover.position[1] + 1;
+			break;
+	}
+
+	oops('backwards');
+
+	console.log(rover);
+}
+
+// ======================
+function oops(movement) {
+	if (rover.position[0] < 0 || rover.position[0] >= 10) {
+		console.log('Oops! your reached the border, you cannot move' + movement);
+		rover.position[0] = 0;
+	}
+	if (rover.position[1] < 0) {
+		console.log('Oops! your reached the border, you cannot move' + movement);
+		rover.position[1] = 0;
+	} else {
+		RegisterTravelLogMovement();
+	}
+}
+
+function RegisterTravelLogMovement() {
+	travelLog.push(
+		'Rover moved Forward, Rovers position is: ' + rover.position
+	);
+}
+
+function RegisterTravelLogTurn() {
+	travelLog.push(
+		'Rover turned ' +
+			turn +
+			', now Rovers direction is: ' +
+			rover.direction
+	);
+}
+
+// ======================
+
+
+// ======================
+
+function commands(command) {
+	for (var i = 0; i < command.length; i++) {
+		switch (command[i]) {
+			case 'b':
+				moveBackwards();
+				break;
+
+			case 'f':
+				moveForward();
+				break;
+
+			case 'r':
+				turn = 'right';
+				turning();
+				break;
+
+			case 'l':
+				turn = 'left';
+				turning();
+				break;
+
+      default:
+       console.log("Please, enter a valid command, i.e. l, r or f");
+       break;
+		}
+	}
+}
+
+//TEST COMMANDS HERE
+console.log('COMMANDS TESTING');
+
+commands('rrfflf');
+
+console.log('======================');
+// ======================
+console.log('TRAVEL LOG TEST');
+
+console.log(travelLog);
+console.log('======================');
+
+console.log('======================');
+// ======================
+console.log('COMMANDS TESTING ON GRID');
+
+console.log(rover);
+
+myGrid[rover.position[0]][rover.position[1]] = 'rover';
+
+console.log(myGrid);
