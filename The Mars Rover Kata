@@ -225,9 +225,6 @@ function RegisterTravelLogTurn() {
 function commands(command) {
 	for (var i = 0; i < command.length; i++) {
 		switch (command[i]) {
-			case 'b':
-				moveBackwards();
-				break;
 
 			case 'f':
 				moveForward();
@@ -242,6 +239,10 @@ function commands(command) {
 				turn = 'left';
 				turning();
 				break;
+				
+			case 'b':
+				moveBackwards();
+				break;
 
       default:
        console.log("Please, enter a valid command, i.e. l, r or f");
@@ -253,7 +254,7 @@ function commands(command) {
 //TEST COMMANDS HERE
 console.log('COMMANDS TESTING');
 
-commands('rrfflf');
+commands('rfrfflf');
 
 console.log('======================');
 // ======================
