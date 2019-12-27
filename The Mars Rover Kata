@@ -1,194 +1,114 @@
-// This JavaScrip code allows you to move the object "rover" around the grid
-
 // Rover Object Goes Here
+// ======================
 
-var rover = {
-	direction: 'N',
-	//"direction" : ["N","E","S","W"]
-	position: [0, 0],
-  obstacle: [[2.6], [9.7], [8.2], [2.4], [5.9], [6.3]],
+var firstRover = {
+  position: [0,0],
+  direction: 'N',
+  name: "Rover1"
 };
 
-console.log('Your current direction is: ' + rover.direction);
-console.log('Your current position is: ' + rover.position);
-console.log('======================');
+var secondRover = {
+  position: [5,5],
+  direction: 'N',
+  name: "Rover2"
+};
 
-//Bonus
+
+var grid = new Array(10);
+for (i = 0; i < 10; i++) {
+	grid[i] = new Array(10);
+	for (j = 0; j < 10; j++) {
+		grid[i][j] = "["+i+","+j+"]";
+		}
+}
 //===========================
 
-function createMatrix(columns, rows) {
-	var matrix = [];
-	for (var i = 0; i < columns; i++) {
-		matrix[i] = new Array(rows);
-	}
-	return matrix;
+  function turnLeft(rover) {
+     console.log("turnLeft was called!"); 
+  switch(rover.direction) {
+    case 'N':
+      rover.direction = 'W';
+      break;
+    case 'E':
+      rover.direction = 'N';
+      break;
+    case 'S':
+      rover.direction = 'E';
+      break;
+    case 'W':
+      rover.direction = 'S';
+      break;
+  }}
+
+
+function turnRight(rover) {
+   console.log("turnRight was called!");
+  switch(rover.direction) {
+    case 'N':
+      rover.direction = 'E';
+      break;
+    case 'E':
+      rover.direction = 'S';
+      break;
+    case 'S':
+      rover.direction = 'W';
+      break;
+    case 'W':
+      rover.direction = 'N';
+      break;
+  }}
+
+  
+ //===========================
+
+function moveForward (rover) {
+    console.log("moveForward was called")
+  switch(rover.direction) {
+    case 'N':
+      rover.position[1]++;
+      if(rover.position[1]>9) rover.position[1] = 0;
+      break;
+    case 'E':
+      rover.position[0]++;
+      if(rover.position[0]>9) rover.position[0] = 0;
+      break;
+    case 'S':
+      rover.position[1]--;
+      if(rover.position[1]<0) rover.position[1] = 9;
+      break;
+    case 'W':
+      rover.position[0]--;
+      if(rover.position[0]<0) rover.position[0] = 9;
+      break;
+     }
+
+  console.log(rover.name + " Rover Position: [" + rover.position[0] + ", " + rover.position[1] + "]");
 }
 
-var myGrid = createMatrix(10, 10);
+function backwards(rover) {
+  console.log("backwards was called")
+  switch(rover.direction) {
+    case 'N':
+      rover.position[1]--;
+      if(rover.position[1]<0) rover.position[1] = 9;
+      break;
+    case 'E':
+      rover.position[0]--;
+      if(rover.position[0]<0) rover.position[0] = 9;
+      break;
+    case 'S':
+      rover.position[1]++;
+      if(rover.position[1]>9) rover.position[1] = 0;
+      break;
+    case 'W':
+      rover.position[0]++;
+      if(rover.position[0]>9) rover.position[0] = 0;
+      break;
+  }
 
-console.log(myGrid);
-
-console.log('======================');
-
-// ======================
-var travelLog = [];
-
-// ======================
-
-console.log('======================');
-
-var obstacles = [
-
-{ "name": "Rock1",
-  "position": [2.6]
-},
-
-{ "name": "Rock2",
-  "position": [9.7]
-},
-
-{ "name": "Rock3",
-  "position": [8.2]
-},
-
-{ "name": "Rock4",
-  "position": [2.4]
-},
-
-{ "name": "Rock5",
-  "position": [5.9]
-},
-
-{ "name": "Rock6",
-  "position": [6.3]
-}
-];
-// ======================
-
-
-//turn
-//=======================
-
-function turnLeft() {
-	console.log('turnLeft was called!');
-
-	switch (rover.direction) {
-		case 'N':
-			rover.direction = 'W';
-			break;
-
-		case 'W':
-			rover.direction = 'S';
-			break;
-
-		case 'S':
-			rover.direction = 'E';
-			break;
-
-		case 'E':
-			rover.direction = 'N';
-			break;
-	}
-	console.log(rover);
+  console.log(rover.name + " Rover Position: [" + rover.position[0] + ", " + rover.position[1] + "]");
 }
 
-function turnRight() {
-	console.log('turnRight was called!');
-	switch (rover.direction) {
-		case 'N':
-			rover.direction = 'E';
-			break;
-
-		case 'E':
-			rover.direction = 'S';
-			break;
-
-		case 'S':
-			rover.direction = 'W';
-			break;
-
-		case 'W':
-			rover.direction = 'N';
-			break;
-	}
-
-	console.log(rover);
-}
-
-function turning() {
-	switch (turn) {
-		case 'left':
-			turnLeft();
-			break;
-
-		case 'right':
-			turnRight();
-			break;
-	}
-
-	RegisterTravelLogTurn();
-}
-
-// ======================
-//MOVEMENT
-
-//moveForward
-
-function moveForward() {
-	console.log('moveForward was called');
-
-	switch (rover.direction) {
-		case 'N':
-			rover.position[0] = rover.position[0] - 1;
-			break;
-
-		case 'E':
-			rover.position[1] = rover.position[1] + 1;
-			break;
-
-		case 'S':
-			rover.position[0] = rover.position[0] + 1;
-			break;
-
-		case 'W':
-			rover.position[1] = rover.position[1] - 1;
-			break;
-	}
-
-	oops('forward');
-
-	console.log(rover);
-}
-
-//moveBackwards Bonus
-
-function moveBackwards() {
-	console.log('moveBackwards was called');
-
-	switch (rover.direction) {
-		case 'N':
-			rover.position[0] = rover.position[0] + 1;
-			break;
-
-		case 'E':
-			rover.position[1] = rover.position[1] - 1;
-			break;
-
-		case 'S':
-			rover.position[0] = rover.position[0] - 1;
-			break;
-
-		case 'W':
-			rover.position[1] = rover.position[1] + 1;
-			break;
-	}
-
-	oops('backwards');
-
-	console.log(rover);
-}
-
-// ======================
 function oops(movement) {
 	if (rover.position[0] < 0 || rover.position[0] >= 10) {
 		console.log('Oops! your reached the border, you cannot move' + movement);
@@ -198,17 +118,17 @@ function oops(movement) {
 		console.log('Oops! your reached the border, you cannot move' + movement);
 		rover.position[1] = 0;
 	} else {
-		RegisterTravelLogMovement();
+		RegisterTravelLogMovement(rover);
 	}
 }
 
-function RegisterTravelLogMovement() {
+function RegisterTravelLogMovement(rover) {
 	travelLog.push(
 		'Rover moved Forward, Rovers position is: ' + rover.position
 	);
 }
 
-function RegisterTravelLogTurn() {
+function RegisterTravelLogTurn(rover) {
 	travelLog.push(
 		'Rover turned ' +
 			turn +
@@ -217,58 +137,32 @@ function RegisterTravelLogTurn() {
 	);
 }
 
-// ======================
+//===========================
 
-
-// ======================
-
-function commands(command) {
-	for (var i = 0; i < command.length; i++) {
-		switch (command[i]) {
-
-			case 'f':
-				moveForward();
-				break;
-
-			case 'r':
-				turn = 'right';
-				turning();
-				break;
-
-			case 'l':
-				turn = 'left';
-				turning();
-				break;
-				
-			case 'b':
-				moveBackwards();
-				break;
-
-      default:
-       console.log("Please, enter a valid command, i.e. l, r or f");
-       break;
-		}
-	}
+function marsRover(rover, orders){
+  for(var i = 0; i < orders.length; i++){
+    var orderCode = orders[i];
+    switch(orderCode){
+      case 'f':
+        moveForward(rover);
+      break;
+      case 'b':
+        backwards(rover);
+      break;
+      case 'r':
+        turnRight(rover);
+      break;
+      case 'l':
+        turnLeft(rover);
+      break;
+      default : console.log('Invalid order');
+      break;
+    }
+  }
 }
 
-//TEST COMMANDS HERE
-console.log('COMMANDS TESTING');
+var actualOrder = "fflfrbb";
+marsRover(secondRover, actualOrder);
 
-commands('rfrfflf');
-
-console.log('======================');
-// ======================
-console.log('TRAVEL LOG TEST');
-
-console.log(travelLog);
-console.log('======================');
-
-console.log('======================');
-// ======================
-console.log('COMMANDS TESTING ON GRID');
-
-console.log(rover);
-
-myGrid[rover.position[0]][rover.position[1]] = 'rover';
-
-console.log(myGrid);
+var actualOrder = "fllflfrb";
+marsRover(firstRover, actualOrder);
