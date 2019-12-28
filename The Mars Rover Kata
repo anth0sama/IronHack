@@ -21,6 +21,30 @@ for (i = 0; i < 10; i++) {
 		grid[i][j] = "["+i+","+j+"]";
 		}
 }
+
+let testBoard = [ 
+  [null,null,null,null,"Rock2",null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null],
+  [null,null,null,"Rock1",null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null],
+  [null,null,null,"Rock",null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null],
+  [null,"Rock3",null,null,null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null]
+];
+let obstaclesList = [];
+
+for(let i = 0; i < testBoard.length; i++){
+  for(let j = 0; j < testBoard[i].length; j++) {
+    if(testBoard[i][j] !== null) {
+      obstaclesList.push({x: j, y: i});
+    }
+  }
+}
+
+
 //===========================
 
   function turnLeft(rover) {
@@ -82,7 +106,12 @@ function moveForward (rover) {
       break;
      }
 
-  console.log(rover.name + " Rover Position: [" + rover.position[0] + ", " + rover.position[1] + "]");
+for(let k = 0; k < obstaclesList.length; k++){
+    if(rover.x === obstaclesList[k].x && rover.y === obstaclesList[k].y) {
+      console.log("Obstacle was found! Stopping now!");
+      throw Error("TEST");
+      } 
+  }
 }
 
 function backwards(rover) {
