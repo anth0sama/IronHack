@@ -13,7 +13,6 @@ var secondRover = {
   name: "Rover2"
 };
 
-
 var grid = new Array(10);
 for (i = 0; i < 10; i++) {
 	grid[i] = new Array(10);
@@ -44,7 +43,6 @@ for(let i = 0; i < testBoard.length; i++){
   }
 }
 
-
 //===========================
 
   function turnLeft(rover) {
@@ -64,7 +62,6 @@ for(let i = 0; i < testBoard.length; i++){
       break;
   }}
 
-
 function turnRight(rover) {
    console.log("turnRight was called!");
   switch(rover.direction) {
@@ -81,7 +78,6 @@ function turnRight(rover) {
       rover.direction = 'N';
       break;
   }}
-
   
  //===========================
 
@@ -195,3 +191,10 @@ marsRover(secondRover, actualOrder);
 
 var actualOrder = "fllflfrb";
 marsRover(firstRover, actualOrder);
+
+//===========================
+function travelLog(rover) {
+  var travelLog = [];
+  travelLog.push([rover.x,rover.y]);
+  console.log(travelLog);
+}
